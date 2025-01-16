@@ -8,3 +8,5 @@
 - Character en player movement
 
 - Huizen vergroot
+
+- Npc´s toegevoegd
