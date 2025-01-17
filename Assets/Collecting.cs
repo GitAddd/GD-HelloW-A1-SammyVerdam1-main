@@ -2,21 +2,26 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Collecting : MonoBehaviour
 {
-    public static event Action OnCollected;
-    void Update()
+    public int collected;
+    [SerializeField] Text ui;
+
+
+    private void Update()
     {
-        transform.localRotation = Quaternion.Euler(90f, Time.time * 100f, 0);
+    
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Player"))
+        if(collision.collider.tag == "Player")
         {
-            OnCollected.Invoke();
-            Destroy(gameObject);
+            collected += 1;
+            ui.text = collected.ToString();
+
         }
     }
 }
