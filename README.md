@@ -1,6 +1,8 @@
 # GD-HelloW-A1-SammyVerdam
 
 ## Changelogs
+- Collectable objects
+
 - Spring mechanisme toegevoegd
 
 - Brug toegevoegd
