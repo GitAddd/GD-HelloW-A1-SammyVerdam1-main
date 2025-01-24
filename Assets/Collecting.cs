@@ -1,27 +1,56 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class Collecting : MonoBehaviour
+namespace MyGameNamespace
 {
-    public int collected;
-    [SerializeField] Text ui;
-
-
-    private void Update()
+    public class DeleteOnTouchConfigurable : MonoBehaviour
     {
-    
-    }
+        [Tooltip("Het object dat verwijderd moet worden wanneer de speler ermee in aanraking komt.")]
+        public GameObject objectToDelete;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.collider.tag == "Player")
+        [Tooltip("De tag van het object dat dit object kan verwijderen bij aanraking.")]
+        public string playerTag = "Player";
+
+        [Tooltip("Sleep hier de ScoreManager om de score op te hogen.")]
+        public ScoreManager scoreManager;
+
+        [Tooltip("Het geluidseffect dat moet worden afgespeeld bij het oppakken.")]
+        public AudioClip pickupSound;
+
+        private AudioSource audioSource;
+
+        private void Start()
         {
-            collected += 1;
-            ui.text = collected.ToString();
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+            }
+        }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag(playerTag))
+            {
+                if (objectToDelete != null)
+                { 
+                    Destroy(objectToDelete);
+
+                    if (scoreManager != null)
+                    {
+                        scoreManager.AddScore(1);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("ScoreManager is niet ingesteld in de Inspector.");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("objectToDelete is niet ingesteld in de Inspector.");
+                }
+            }
         }
     }
 }
+      

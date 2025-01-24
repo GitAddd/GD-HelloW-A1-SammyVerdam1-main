@@ -15,11 +15,7 @@ public class collecting2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        UI.text = Collected.ToString();
-
-    }
+    
 
     private void OnCollisionEnter(Collision collision)
     {
